@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Bars from "@/public/Bars.svg";
 import Hero from "@/public/hero.jpg";
-import Texture from "@/public/texture.jpg";
 import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 
