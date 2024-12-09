@@ -44,14 +44,12 @@ export async function generateStaticParams() {
 export default function RootLayout({
   children,
   params,
-}: Readonly<{
+}: {
   children: React.ReactNode;
   params: { lang: string };
-}>) {
-  const { lang } = params;
-
+}) {
   return (
-    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
+    <html lang={params.lang} dir={params.lang === "ar" ? "rtl" : "ltr"}>
       <body className={`${neue.className} antialiased`}>
         <Navbar />
         {children}
