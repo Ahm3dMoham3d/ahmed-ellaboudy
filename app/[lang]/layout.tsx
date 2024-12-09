@@ -13,11 +13,11 @@ const neue = localFont({
 });
 
 type Props = {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang } = params;
+  const { lang } = await params; // Resolve the promise
 
   return {
     title: {
@@ -37,19 +37,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  return [{ lang: "ar" }, { lang: "en" }];
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
+  const { lang } = await params; // Resolve the promise
+
   return (
-    <html lang={params.lang} dir={params.lang === "ar" ? "rtl" : "ltr"}>
+    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
       <body className={`${neue.className} antialiased`}>
         <Navbar />
         {children}
