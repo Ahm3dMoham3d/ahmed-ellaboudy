@@ -5,41 +5,26 @@ import Navbar from "@/components/Navbar";
 
 const neue = localFont({
   src: [
-    {
-      path: ".././fonts/NeueFrutigerWorld-Regular.woff",
-      weight: "400",
-    },
-
-    {
-      path: ".././fonts/NeueFrutigerWorld-Medium.woff",
-      weight: "500",
-    },
-
-    {
-      path: ".././fonts/NeueFrutigerWorld-Bold.woff",
-      weight: "700",
-    },
-
-    {
-      path: ".././fonts/NeueFrutigerWorld-Black.woff",
-      weight: "800",
-    },
+    { path: ".././fonts/NeueFrutigerWorld-Regular.woff", weight: "400" },
+    { path: ".././fonts/NeueFrutigerWorld-Medium.woff", weight: "500" },
+    { path: ".././fonts/NeueFrutigerWorld-Bold.woff", weight: "700" },
+    { path: ".././fonts/NeueFrutigerWorld-Black.woff", weight: "800" },
   ],
 });
 
 type Props = {
-  params: Promise<{ lang: string }>;
+  params: { lang: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const lang = (await params).lang;
+  const { lang } = params;
 
   return {
     title: {
       template:
         lang === "ar"
           ? "%s | مكتب الأستاذ أحمد اللبودي للمحاسبة والمراجعة والإستشارات المالية والضريبية"
-          : "Mr. Ahmed Ellaboudy Office for Accounting, Auditing, Financial and Tax Consultation | $s",
+          : "Mr. Ahmed Ellaboudy Office for Accounting, Auditing, Financial and Tax Consultation | %s",
       default:
         lang === "ar"
           ? "مكتب الأستاذ أحمد اللبودي للمحاسبة والمراجعة والإستشارات المالية والضريبية"
@@ -56,19 +41,19 @@ export async function generateStaticParams() {
   return [{ lang: "ar" }, { lang: "en" }];
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
   params: { lang: string };
 }>) {
-  const { lang } = await params;
+  const { lang } = params;
 
   return (
     <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
       <body className={`${neue.className} antialiased`}>
-        <Navbar lang={lang} />
+        <Navbar />
         {children}
       </body>
     </html>
